@@ -1,0 +1,8 @@
+
+
+
+    x = channels["General"].index(mensaje)
+    print(channels)
+    print(x)
+    print(channels["General"][x])
+    print(channels["General"][x][username]

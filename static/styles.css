@@ -1,0 +1,79 @@
+body{
+ 
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+
+
+   
+    }
+
+#intro{
+    background-color: #e94057;
+    width: 600px;
+    margin: auto;
+    margin-top: 150px;
+    
+}
+
+#intro h1,p{
+    color: rgb(255, 250, 251) ;
+}
+
+
+
+#contenido{
+    padding: 30px;
+
+}
+
+#chat{
+    background-color:  #746d6ede; 
+    
+}
+
+#titulos {
+    color: #e9405786
+
+}
+
+#messages li{
+    list-style-type: none;
+    background-color: #e94057c5;
+    padding: 20px;
+    color: #d6cdcf;
+    margin: 5px 0px 5px 0px;
+    border: solid rgb(194, 33, 33);
+    font-size: 20px;
+    text-align: right;
+    height: 140px;
+}
+
+
+#messages{
+    margin:2px; 
+}
+
+#messages,#channelList,#inbox {
+    overflow: auto ;
+  }
+    
+    
+#hora{
+    font-size: 15px;
+    color: #55131cc5;;
+}
+
+#name{
+    color: rgb(23, 9, 102)
+}
+
+.lista{
+    list-style-type: none;
+    padding: 5px;
+    color:  #55131cc5;;
+    font-size: 20px;
+    text-align: center;
+    
+}
