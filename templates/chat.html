@@ -51,6 +51,11 @@
                 <!--place for all messages-->
                 <ul id='messages'>
 
+                {% for mensaje in mensajes %}
+                    <li> <p id="name">{{mensaje.username}}</p> <p id="msg"> {{mensaje.msg}}</p> <p id="hora">{{mensaje.timestamp}}</p> </li>
+                {% endfor %}
+
+
                 </ul>
 
           

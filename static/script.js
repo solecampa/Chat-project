@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#formulario').onsubmit = () => {
         const msg = document.querySelector('#nuevoMensaje').value;
         socket.emit('enviar mensaje', {'msg': msg, 'username':username, 'room':room});
-        document.querySelector('#nuevoMensaje').value = '';
+        document.querySelector('#nuevoMensaje').value ='';
         return false;
         
     };

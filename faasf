@@ -1,8 +1,5 @@
 
-
-
-    x = channels["General"].index(mensaje)
-    print(channels)
-    print(x)
-    print(channels["General"][x])
-    print(channels["General"][x][username]
+        nombre = channels[room][x].get("username")
+        fecha = channels[room][x].get("timestamp")
+        msj = channels[room][x].get("msg")
+        x = channels[room].index(mensaje)

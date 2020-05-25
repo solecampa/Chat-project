@@ -16,9 +16,8 @@ channels = {}
 usernames = []
 channels["General"] = []
 
-
-
 print(channels)
+
 
 
 
@@ -39,10 +38,10 @@ def index():
         return redirect(url_for('chat'))    
     return render_template('index.html')
 
-@app.route("/chat" , methods=["POST", "GET"]) 
+@app.route("/chat/General" , methods=["POST", "GET"]) 
 def chat():   
-   
-    return render_template('chat.html',  usernames=usernames, channels=channels)
+    mensajes=channels["General"]
+    return render_template('chat.html',  usernames=usernames, channels=channels, mensajes=mensajes)
 
 
 
@@ -66,7 +65,6 @@ def send_msg(data):
     channels[room].append(mensaje)
     print(channels)
 
-    
     send(mensaje, room=room )
 
 
@@ -93,22 +91,18 @@ def on_leave(data):
     send({"msg": leaving + " has left the " + room + " room.", "username":username, "timestamp":timestamp }, room=room) 
 
 @app.route("/chat/<string:room>" , methods=["POST", "GET"]) 
-def chatroom(room):   
-   
-    return render_template('chat.html',  usernames=usernames, channels=channels)
+def chatroom(room):
 
-
-
-
-"""     nombre = channels[room][x].get("username")
-    fecha = channels[room][x].get("timestamp")
-    msj = channels[room][x].get("msg")
-    x = channels[room].index(mensaje)
-     """
+    mensajes=channels[room]   
     
-"""     print(x)
-    print(channels[room][x].get("username")) """
+    return render_template('chat.html',  usernames=usernames, channels=channels, mensajes=mensajes)
+
     
+ 
+
+
+
+
 
 
 
