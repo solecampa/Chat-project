@@ -1,5 +1,0 @@
-
-        nombre = channels[room][x].get("username")
-        fecha = channels[room][x].get("timestamp")
-        msj = channels[room][x].get("msg")
-        x = channels[room].index(mensaje)

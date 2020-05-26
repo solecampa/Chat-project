@@ -1,13 +1,4 @@
-body{
- 
-    background: #000000;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
 
-
-   
-    }
 
 #intro{
     background-color: #e94057;
@@ -29,25 +20,26 @@ body{
 }
 
 #chat{
-    background-color:  #746d6ede; 
+    background-color:  #c4c0c18a; 
+    border: 1px solid black
     
 }
 
-#titulos {
-    color: #e9405786
 
-}
 
-#messages li{
+#mensaje{
     list-style-type: none;
-    background-color: #e94057c5;
+    background-color: rgba(220, 20, 60, 0.651);
     padding: 20px;
-    color: #d6cdcf;
+    min-width: 300px;
+    max-width: min-content;
     margin: 5px 0px 5px 0px;
-    border: solid rgb(194, 33, 33);
+    border-radius: 30px;
     font-size: 20px;
     text-align: right;
-    height: 140px;
+    max-height: min-content;
+    
+    
 }
 
 
@@ -66,14 +58,45 @@ body{
 }
 
 #name{
-    color: rgb(23, 9, 102)
+    color: rgb(14, 3, 4)
 }
+
+#msg{
+    color: #d3cecf;
+}
+
+
+.titulos{
+    color: crimson;
+}
+
+
 
 .lista{
     list-style-type: none;
     padding: 5px;
-    color:  #55131cc5;;
+    color:  rgb(10, 3, 4);
     font-size: 20px;
     text-align: center;
+    
+}
+
+.lista:hover{
+    background-color: crimson
+     
+}
+
+#Anuncio{
+    list-style-type: none;
+    background-color: crimson;
+    padding: 10px;
+    min-width: 300px;
+    max-width: min-content;
+    margin: 5px 0px 5px 0px;
+    border-radius: 15px;
+    font-size: 15px;
+    text-align: right;
+    height: 35px;
+    
     
 }

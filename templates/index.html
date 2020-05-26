@@ -45,7 +45,14 @@
 </body>
 <script>
 
+    
+
     document.addEventListener('DOMContentLoaded', function() {
+        let room = localStorage.getItem('room')
+        
+
+        
+         
         document.querySelector('#form').onsubmit = function() {
             const username = document.querySelector('#name').value;
             localStorage.setItem('username', username);
@@ -53,6 +60,10 @@
         };
 
         
+
+        
+ 
+    
 
 
     });

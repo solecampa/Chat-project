@@ -9,6 +9,9 @@
 
     <!-- MY CSS -->
     <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/6e90631620.js" crossorigin="anonymous"></script>
     
    
     
@@ -26,73 +29,74 @@
 
 <body style="height:900px" class='container'>
 
+    <nav class="float-right">
+        Hello {{username}} <a href="{{ url_for('logout') }}">Log out</a>
+    </nav>
 
-
-    <div id="titulos">
-        <h1 >
-            FLACK <span><i class="fas fa-bullhorn"></i></span>
+    <div  class=" text-center">
+        <h1  class="float-left">
+            <p class="titulos"> FLACK <span><i class="fas fa-bullhorn"></i></span> </p> 
+            <p class="titulos" id= "newchannel">Channel: General</p>
         </h1>
-        <h1 id= "newchannel" > Channel: General </h1>
-           
 
 
     </div>
-    <div class="text-white">
+    <div >
       <h4> <span id="user"></span></h4>  
     </div>
 
 
-    <div class="row h-75 w-100 no-gutters border border-white" id="chat">
+    <div class="row h-75 w-100 no-gutters shadow-lg" id="chat">
 
         
-        <div class="col-9  border p-3 d-flex flex-column justify-content-end h-100" >
+        <div class="col-9  p-3 d-flex flex-column justify-content-end h-100" >
             
-            <div class="container" ></div>
+            
                 <!--place for all messages-->
-                <ul id='messages'>
+                <ul id='messages' class="text-center d-flex flex-column">
 
                 {% for mensaje in mensajes %}
-                    <li> <p id="name">{{mensaje.username}}</p> <p id="msg"> {{mensaje.msg}}</p> <p id="hora">{{mensaje.timestamp}}</p> </li>
+                    <li id="mensaje"  class="text-center d-flex flex-column"> <p class="text-center d-flex flex-column"  id="name">{{mensaje.username|title}}</p> <p class="text-center d-flex flex-column" id="msg"> {{mensaje.msg}}</p> <p class="text-center d-flex flex-column" id="hora">{{mensaje.timestamp}}</p> </li>
                 {% endfor %}
 
 
                 </ul>
 
           
-            <div>
+    
                 <form id="formulario">
-                    <input  id='nuevoMensaje' type='text' class="  form-control text-right " maxlength="80" placeholder="Type something..."  action="{{ url_for('chat') }} ">
+                    <input  id='nuevoMensaje' type='text' class="  form-control text-right " maxlength="80" placeholder="Type something..."  action="{{ url_for('chat') }} " autocomplete="off">
                     <button id="submit" type="submit" class="btn btn-secondary mt-2">Submit</button>
                 </form>
             </div>
         
-        </div>
+        
 
 
 
 
-        <div class="col-3   border border-secondary h-100"  >
+        <div class="col-3  h-100"  >
             
 
             <h2 id='username' class='text-center bg-info m-1 rounded '></h2>
-            <h4 class='pl-1 text-center text-white'>Users</h4>
+            <h4 class='pl-1 text-center '>Users</h4>
             <ul  id='inbox' class="list-group h-25 ">
             <!--place for list of users (private conversation)-->
                 {% for username in usernames %}
-                    <li class="lista"> {{ username }} </li>
+                    <li class="lista"> {{ username|title }} </li>
                 {% endfor %}
             </ul>
             <div id="channels" class="text-center">
-                <h4 class='pl-1 pt-2 text-center text-white'>Channels</h4>
+                <h4 class='pl-1 pt-2 text-center'>Channels</h4>
                 <form id="channelform">
-                    <input  id="nuevoChannel" type='text' class="  form-control text-right " maxlength="80" placeholder="Create new channel +" name="channel" action="{{ url_for('chat') }} ">
+                    <input  id="nuevoChannel" type='text' class="  form-control text-right " maxlength="80" placeholder="Create new channel +" name="channel" action="{{ url_for('chat') }} " autocomplete="off">
                     <button id="Create" type="submit" class="btn btn-secondary mt-2">Create</button>
                 </form>
                 <ul id="channelList" class="list-group text-center h-50 m-1 ">
                 <!--place for list of channels-->
                     {% for channel in channels %}
 
-                  <li class="lista" id="eachchannel" >{{ channel }}</li>
+                 <li class="lista" id="eachchannel" >{{ channel }}</li>
 
                     {% endfor %} 
                 </ul>
