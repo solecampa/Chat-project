@@ -79,13 +79,7 @@
             
 
             <h2 id='username' class='text-center bg-info m-1 rounded '></h2>
-            <h4 class='pl-1 text-center '>Users</h4>
-            <ul  id='inbox' class="list-group h-25 ">
-            <!--place for list of users (private conversation)-->
-                {% for username in usernames %}
-                    <li class="lista"> {{ username|title }} </li>
-                {% endfor %}
-            </ul>
+
             <div id="channels" class="text-center">
                 <h4 class='pl-1 pt-2 text-center'>Channels</h4>
                 <form id="channelform">

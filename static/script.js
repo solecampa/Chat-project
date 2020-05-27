@@ -27,47 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
-
-
     var socket = io.connect('http://127.0.0.1:5000');
 
     joinRoom(room);
-    Usuario(username);
-
-
-
-
-
-
     
 
 
-
-
-
-    //usuario
-
-
-    
-        socket.on('anunciar usuario', data => {
-            const li = document.createElement('li');
-            li.className = "lista"
-            li.setAttribute("id", "usuario")
-            li.innerHTML =  `${data.username}`;
-            document.querySelector('#inbox').append(li);
-            console.log(data.username)
-        });
-
-
-
-
-
-
-    //mensaje
-
-
+    //Send message
 
 
     document.querySelector('#formulario').onsubmit = () => {
@@ -78,9 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
     };
 
-
-
-
+    //Announce message
 
     socket.on('message', data => {
         const li = document.createElement('li');
@@ -100,20 +64,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 li.prepend(hide);
             }
 
+            //Creating hide element to dinamically created messages, and deleting them onclick
+
             hide.onclick = function() {
                 this.parentElement.remove();
                 var parrafo = this.parentElement
                 console.log(parrafo)
                 parrafo.remove();
-                console.log(parrafo.children[2].innerHTML)
-                console.log(parrafo.children[3].innerHTML)
-
                 const msg = parrafo.children[2].innerHTML
                 const timestamp = parrafo.children[3].innerHTML 
- 
-                console.log(room)
-                
-
                 socket.emit('borrar', {"timestamp": timestamp, "msg": msg, "username": username, "room":room}); 
             };
 
@@ -128,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
    
-    //channel
+    //Create channel
 
    document.querySelector('#channelform').onsubmit = () => { 
     const room = document.querySelector('#nuevoChannel').value;
@@ -138,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
    };
    
 
+   //Announce channel
 
     socket.on('anunciar channel', data => {
         if (data["room"] == "Room already exist"){
@@ -155,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         
-
+        //Redirect to that channel onclick (for dynamically created channels)
 
         document.querySelectorAll('#eachchannel').forEach(li => {
             li.onclick = () => {
@@ -173,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }); 
     }); 
 
+    //Redirect to  channel onclick (for channels displayed with jinja)
 
     document.querySelectorAll('#eachchannel').forEach(li => {
         li.onclick = () => {
@@ -191,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     
-
+    //Creating hide element, and removing message onclick
 
     
         document.querySelectorAll('#name').forEach(p =>{    
@@ -202,27 +163,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 hide.className = 'hide btn'
                 hide.innerHTML = '&#10008;'
                 p.prepend(hide);
-
                 hide.onclick = function() {
-                var parrafo = this.parentElement
-                var msj = parrafo.parentElement
-                msj.remove();
-                console.log(nombre)
-                console.log(msj.children[1].innerHTML)
-                console.log(msj.children[2].innerHTML)
-                
-                const msg = msj.children[1].innerHTML
-                const timestamp = msj.children[2].innerHTML
+                    var parrafo = this.parentElement
+                    var msj = parrafo.parentElement
+                    msj.remove();
+                    const msg = msj.children[1].innerHTML
+                    const timestamp = msj.children[2].innerHTML
 
-                console.log(room)
-                
-
-                socket.emit('borrar', {"timestamp": timestamp, "msg": msg, "username": nombre, "room":room}); 
+                    socket.emit('borrar', {"timestamp": timestamp, "msg": msg, "username": nombre, "room":room}); 
 
                 };
             } 
                     
         });
+
+    //Announce deleted message
 
     socket.on('anunciar borrar', data => {
         console.log("borrado")
@@ -241,13 +196,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 
         });
-        /* {"timestamp": timestamp, "msg": msg, "username": username} */
-        /* if (data["username"] == username) */
+
 
     });
  
  
-
+    //Functions
 
     function leaveRoom(room) {
         socket.emit('leave', {'username': username, 'room': room});
@@ -264,12 +218,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const chatWindow = document.querySelector("#messages");
         chatWindow.scrollTop = chatWindow.scrollHeight;
     }
-
-    function Usuario() {
-        socket.emit('crear usuario', {'username' : username});
-
-    }
-
 
 }); 
 

@@ -29,7 +29,18 @@ def index():
     if request.method=="POST":
         username = request.form.get("name")
         session["username"] = username
-        return redirect(url_for('chat'))     
+        if username not in usernames:
+            usernames.append(username)
+            print(usernames)
+            return redirect(url_for('chat')) 
+        else:
+            print("ya exite")
+            flash("Username already exist, pick another one") 
+            return render_template('index.html')
+            
+            
+            
+            
     else:
         if "username" in session:
             if "room" in session:
@@ -49,7 +60,11 @@ def chat():
 
 @app.route("/logout/")
 def logout():
+    username = session["username"]
     session.pop("username")
+    x = usernames.index(username)
+    usernames.pop(x)
+
     return redirect(url_for('index'))
 
 
@@ -62,12 +77,6 @@ def crear_channel(data):
     else:
         emit("anunciar channel", {'room': "Room already exist"},)
 
-@socketio.on('crear usuario')
-def usuario(data):
-    username = data['username']
-    if username not in usernames:
-        usernames.append(username)
-        emit("anunciar usuario", {'username': username},  broadcast=True) 
 
 
 @socketio.on('borrar')

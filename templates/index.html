@@ -41,6 +41,22 @@
         
     </div>
 
+    <div class="container"  >
+        <h1>{{ message }}</h1>
+        <div class= "container message">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="alert alert-secondary message text-center" role="alert">
+                    {% for message in messages %}
+                        <li id="mensaje">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+    </div>
+
     
 </body>
 <script>
