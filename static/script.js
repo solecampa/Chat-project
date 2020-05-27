@@ -225,8 +225,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     socket.on('anunciar borrar', data => {
-        
         console.log("borrado")
+        document.querySelectorAll('#mensaje').forEach(li => {
+            if (data["username"] != username){
+                console.log(li.children[2].innerHTML)
+                time = li.children[2]
+                console.log(time)
+                if(data["timestamp"]==time.innerHTML){
+                    var borrar = time.parentElement
+                    borrar.remove();
+                    socket.emit('enviar mensaje', {'msg': data["username"] +" Deleted a message", 'username': "Anuncio", 'room':room});
+                    
+                }
+            }
+
+                
+        });
+        /* {"timestamp": timestamp, "msg": msg, "username": username} */
+        /* if (data["username"] == username) */
 
     });
  
