@@ -96,7 +96,16 @@
     border-radius: 15px;
     font-size: 15px;
     text-align: right;
-    height: 35px;
+    height: 40px;
     
     
+}
+
+.hide{
+    float: right;
+    
+}
+
+.hide:hover{
+    background-color:  darkorange;
 }

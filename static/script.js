@@ -37,6 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
     Usuario(username);
 
 
+
+
+
+
     
 
 
@@ -57,7 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
 
-    //usuario
+
+
+
+
+    //mensaje
 
 
 
@@ -83,9 +91,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else{
             li.setAttribute("id", "mensaje")
-            li.innerHTML =` <p id="name">${data["username"]}</p> <p id="msg"> ${data["msg"]}</p> <p id="hora">${data["timestamp"]}</p> `;
-            
+            li.setAttribute("class", "text-center d-flex flex-column")
+            li.innerHTML =` <p id="name">${data["username"]}</p> <p id="msg">${data["msg"]}</p> <p id="hora">${data["timestamp"]}</p> `;
+            const hide = document.createElement('button')
+            if (data["username"] == username){
+                hide.className = 'hide btn'
+                hide.innerHTML = '&#10008;'
+                li.prepend(hide);
+            }
+
+            hide.onclick = function() {
+                this.parentElement.remove();
+                var parrafo = this.parentElement
+                console.log(parrafo)
+                parrafo.remove();
+                console.log(parrafo.children[2].innerHTML)
+                console.log(parrafo.children[3].innerHTML)
+
+                const msg = parrafo.children[2].innerHTML
+                const timestamp = parrafo.children[3].innerHTML 
+ 
+                console.log(room)
+                
+
+                socket.emit('borrar', {"timestamp": timestamp, "msg": msg, "username": username, "room":room}); 
+            };
+
         }
+
         document.querySelector('#messages').append(li);
         scrollDownChatWindow();
         document.querySelector("#nuevoMensaje").focus();
@@ -95,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
    
- //channel
+    //channel
 
    document.querySelector('#channelform').onsubmit = () => { 
     const room = document.querySelector('#nuevoChannel').value;
@@ -107,12 +140,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     socket.on('anunciar channel', data => {
-        const li = document.createElement('li');
-        li.className = "lista"
-        li.setAttribute("id", "eachchannel")
-        li.innerHTML =  `${data.room}`;
-        document.querySelector('#channelList').append(li);
-        console.log(data.room)
+        if (data["room"] == "Room already exist"){
+            
+            alert("Room already exist")
+
+        } 
+        else {
+            const li = document.createElement('li');
+            li.className = "lista"
+            li.setAttribute("id", "eachchannel")
+            li.innerHTML =  `${data.room}`;
+            document.querySelector('#channelList').append(li);
+            
+        }
+
+        
 
 
         document.querySelectorAll('#eachchannel').forEach(li => {
@@ -146,6 +188,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
     }); 
+
+
+    
+
+
+    
+        document.querySelectorAll('#name').forEach(p =>{    
+            var nombre = p.innerHTML
+            if(nombre == username ){
+                console.log("igual")
+                const hide = document.createElement('button')
+                hide.className = 'hide btn'
+                hide.innerHTML = '&#10008;'
+                p.prepend(hide);
+
+                hide.onclick = function() {
+                var parrafo = this.parentElement
+                var msj = parrafo.parentElement
+                msj.remove();
+                console.log(nombre)
+                console.log(msj.children[1].innerHTML)
+                console.log(msj.children[2].innerHTML)
+                
+                const msg = msj.children[1].innerHTML
+                const timestamp = msj.children[2].innerHTML
+
+                console.log(room)
+                
+
+                socket.emit('borrar', {"timestamp": timestamp, "msg": msg, "username": nombre, "room":room}); 
+
+                };
+            } 
+                    
+        });
+
+    socket.on('anunciar borrar', data => {
+        
+        console.log("borrado")
+
+    });
+ 
+ 
 
 
     function leaveRoom(room) {

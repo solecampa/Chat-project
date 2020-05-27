@@ -59,6 +59,8 @@ def crear_channel(data):
     if room not in channels:
         channels[room] = []
         emit("anunciar channel", {'room': room},  broadcast=True)
+    else:
+        emit("anunciar channel", {'room': "Room already exist"},)
 
 @socketio.on('crear usuario')
 def usuario(data):
@@ -67,6 +69,21 @@ def usuario(data):
         usernames.append(username)
         emit("anunciar usuario", {'username': username},  broadcast=True) 
 
+
+@socketio.on('borrar')
+def borrar(data):
+    print("borrar")
+    timestamp = data["timestamp"]
+    msg = data["msg"]
+    room = data["room"]
+    username = data["username"]
+    MensajeBorrado = {"timestamp": timestamp, "msg": msg, "username": username}
+    mensajes = channels[room]
+    x = mensajes.index(MensajeBorrado)
+    del mensajes[x]    #elimine el msj de la lista de mensajes
+    print(channels)
+
+    emit("anunciar borrar", {"timestamp": timestamp, "msg": msg, "username": username}, room=room,  broadcast=True) 
 
         
         
@@ -78,7 +95,7 @@ def send_msg(data):
     room = data["room"]
     mensaje = {"timestamp": timestamp, "msg": msg, "username": username}
     channels[room].append(mensaje)
-    print(request)
+
     print(channels)
 
     send(mensaje, room=room )
@@ -93,7 +110,7 @@ def on_join(data):
     join_room(room)
     timestamp = time.asctime( time.localtime( time.time() ) )
     # Broadcast that new user has joined
-    send({"msg": joining + " has joined the " + room + " room.", "username":username, "timestamp":timestamp }, room=room)
+    send({"msg": joining + " has joined " + room , "username":username, "timestamp":timestamp }, room=room)
 
 
 @socketio.on('leave')
@@ -104,7 +121,7 @@ def on_leave(data):
     timestamp = time.asctime( time.localtime( time.time() ) )
     room = data["room"]
     leave_room(room)
-    send({"msg": leaving + " has left the " + room + " room.", "username":username, "timestamp":timestamp }, room=room) 
+    send({"msg": leaving + " has left the " + room , "username":username, "timestamp":timestamp }, room=room) 
 
 @app.route("/chat/<string:room>" , methods=["POST", "GET"]) 
 def chatroom(room):
