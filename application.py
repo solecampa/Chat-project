@@ -37,10 +37,6 @@ def index():
             print("ya exite")
             flash("Username already exist, pick another one") 
             return render_template('index.html')
-            
-            
-            
-            
     else:
         if "username" in session:
             if "room" in session:
