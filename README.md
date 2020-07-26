@@ -1,3 +1,3 @@
 # Project 2
 
-Web Programming with Python and JavaScript
+Click the link to a walk through https://www.youtube.com/watch?v=ocyCXrpRqT0
